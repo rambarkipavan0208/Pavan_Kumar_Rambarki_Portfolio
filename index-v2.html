@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pavan Kumar Rambarki | VLSI Design Verification & AI Research</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0f1d;
+      --bg-secondary: #111827;
+      --bg-card: rgba(17, 24, 39, 0.75);
+      --bg-card-hover: rgba(30, 41, 59, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(56, 189, 248, 0.35);
+      --accent-cyan: #38bdf8;
+      --accent-indigo: #818cf8;
+      --accent-emerald: #34d399;
+      --text-main: #f3f4f6;
+      --text-muted: #94a3b8;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -150px;
+      left: 20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -150px;
+      right: 10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(129, 140, 248, 0.1) 0%, transparent 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(12px);
+      background: rgba(10, 15, 29, 0.88);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--accent-cyan);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    .hero {
+      padding: 4rem 0 3rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+
+    .badge-status {
+      background: rgba(52, 211, 153, 0.1);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--accent-emerald);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: 2.75rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 760px;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent-cyan);
+      color: #0b1120;
+    }
+
+    .btn-primary:hover {
+      background: #7dd3fc;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      transform: translateY(-2px);
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-color);
+    }
+
+    .section-num {
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 4rem;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-3px);
+    }
+
+    .skill-card h3 {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+      margin-bottom: 4rem;
+    }
+
+    .timeline-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--accent-cyan);
+      border-radius: 0 8px 8px 0;
+      padding: 1.5rem;
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .timeline-role {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .timeline-company {
+      color: var(--accent-cyan);
+      font-weight: 500;
+    }
+
+    .timeline-period {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-bullets {
+      padding-left: 1.25rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .timeline-bullets li {
+      margin-bottom: 0.4rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-accent);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+    }
+
+    .project-category {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-indigo);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .pub-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .pub-badge {
+      align-self: flex-start;
+      background: rgba(129, 140, 248, 0.15);
+      color: var(--accent-indigo);
+      border: 1px solid rgba(129, 140, 248, 0.3);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+    }
+
+    .pub-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .pub-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Contact Section & Mailbox */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 2.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .contact-info h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-info p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .contact-item a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mailbox Form */
+    .mailbox-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    .form-control {
+      background: rgba(10, 15, 29, 0.6);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .btn-send {
+      align-self: flex-start;
+      margin-top: 0.5rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 2.5rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+    }
+
+    @media (max-width: 820px) {
+      .hero h1 { font-size: 2.2rem; }
+      .nav-links { display: none; }
+      .contact-container {
+        grid-template-columns: 1fr;
+        padding: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#" class="nav-brand">Pavan Kumar Rambarki</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Key Projects</a></li>
+      <li><a href="#research">Publications</a></li>
+      <li><a href="#contact">Contact & Mail</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <!-- Hero -->
+    <header class="hero" id="about">
+      <div class="badge badge-status">
+        <span class="badge-dot"></span> Verification Engineer &amp; Researcher
+      </div>
+      <h1>Rambarki Pavan Kumar</h1>
+      <div class="hero-subtitle">VLSI Verification Engineer | UVM &amp; AMBA Protocols | AI/ML Research</div>
+      <p class="hero-desc">
+        M.Tech graduate from NIT Rourkela with hands-on verification experience in complex DMA IP, AMBA AXI4/APB bus protocols, and UVM RAL architectures. Actively bridging hardware verification flows with modern Python scripting and machine learning automation.
+      </p>
+      <div class="hero-actions">
+        <a href="https://linkedin.com/in/rambarkipavan" target="_blank" class="btn btn-primary">LinkedIn Profile</a>
+        <a href="#contact" class="btn btn-outline">Send a Message</a>
+        <a href="#projects" class="btn btn-outline">View Testbenches &amp; Projects</a>
+      </div>
+    </header>
+
+    <!-- Technical Skills Breakdown -->
+    <section>
+      <h2 class="section-title"><span class="section-num">01.</span> Technical Arsenal</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>Verification &amp; HDLs</h3>
+          <div class="skill-tags">
+            <span class="tag">SystemVerilog</span>
+            <span class="tag">UVM</span>
+            <span class="tag">Verilog HDL</span>
+            <span class="tag">Constrained Random</span>
+            <span class="tag">Functional Coverage</span>
+            <span class="tag">SVA (Assertions)</span>
+            <span class="tag">UVM RAL</span>
+            <span class="tag">Virtual Sequences</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Protocols &amp; Architecture</h3>
+          <div class="skill-tags">
+            <span class="tag">AMBA AXI4</span>
+            <span class="tag">AXI4-Lite</span>
+            <span class="tag">APB</span>
+            <span class="tag">CHI</span>
+            <span class="tag">RISC-V</span>
+            <span class="tag">FIFO (Sync / Async)</span>
+            <span class="tag">CDC &amp; Gray Coding</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>EDA Tools &amp; Hardware</h3>
+          <div class="skill-tags">
+            <span class="tag">Synopsys VCS</span>
+            <span class="tag">Siemens QuestaSIM</span>
+            <span class="tag">Xilinx Vivado</span>
+            <span class="tag">Cadence Virtuoso</span>
+            <span class="tag">LTSpice / TSpice</span>
+            <span class="tag">Linux Shell</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>AI &amp; Automation</h3>
+          <div class="skill-tags">
+            <span class="tag">Python</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">Verification Automation</span>
+            <span class="tag">Attention Networks</span>
+            <span class="tag">Data Analysis</span>
+            <span class="tag">C / C++</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Professional Experience -->
+    <section id="experience">
+      <h2 class="section-title"><span class="section-num">02.</span> Experience</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">Verification Engineer</div>
+              <div class="timeline-company">Mirafra Technologies &bull; Bengaluru</div>
+            </div>
+            <div class="timeline-period">July 2025 – Present</div>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Designed and enhanced modular <strong>UVM-based DMA verification environments</strong>, leveraging Register Abstraction Layer (RAL) for strict control/status register checking with backdoor and frontdoor access.</li>
+            <li>Analyzed <strong>AMBA AXI4-Lite protocol transactions</strong>, focusing on register-level handshakes, data movement efficiency, and interconnect utilization.</li>
+            <li>Conducted deep-dive root cause analysis using VCS and QuestaSIM waveforms to resolve protocol violations, FIFO backpressure, and corner-case functional anomalies.</li>
+            <li>Collaborated closely with design architects to translate RTL specifications into comprehensive functional coverage models and constrained-random sequences.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">Teaching Assistant</div>
+              <div class="timeline-company">NIT Rourkela &bull; Dept. of ECE</div>
+            </div>
+            <div class="timeline-period">May 2024 – May 2025</div>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Instructed undergraduate engineering labs on DSOs, multimeters, PID controllers, and biomedical instrumentation.</li>
+            <li>Supported experimental troubleshooting and evaluated lab coursework for 60+ students.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section id="projects">
+      <h2 class="section-title"><span class="section-num">03.</span> Featured Projects &amp; Verification IP</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div>
+            <div class="project-category">UVM Testbench Architecture</div>
+            <h3 class="project-title">DMA Verification with UVM RAL</h3>
+            <p class="project-desc">
+              Developed a modular, reusable UVM testbench featuring virtual sequencers, scoreboards, and drivers. Integrated a full Register Abstraction Layer (RAL) with frontdoor/backdoor access, auto-prediction, and mirror checking to validate status/control registers under edge-case conditions.
+            </p>
+          </div>
+          <div class="skill-tags">
+            <span class="tag">SystemVerilog</span>
+            <span class="tag">UVM RAL</span>
+            <span class="tag">QuestaSIM</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <div class="project-category">Bus Protocol &amp; SVA</div>
+            <h3 class="project-title">AMBA AXI4 Protocol Debug &amp; SVA Suite</h3>
+            <p class="project-desc">
+              Constructed formal SystemVerilog Assertions (SVA) tracking all 5 channels (AW, W, B, AR, R) for protocol compliance. Isolated handshake latency bottlenecks and verified backpressure handling, out-of-order transaction IDs, and unaligned burst boundaries.
+            </p>
+          </div>
+          <div class="skill-tags">
+            <span class="tag">AXI4</span>
+            <span class="tag">SVA</span>
+            <span class="tag">Handshake Debug</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <div class="project-category">RTL &amp; CDC Verification</div>
+            <h3 class="project-title">Async FIFO with Gray-Coded CDC</h3>
+            <p class="project-desc">
+              Designed parameterizable synchronous and asynchronous FIFOs in Verilog. Mitigated Clock Domain Crossing (CDC) metastability through multi-stage flip-flop synchronizers and Gray-coded pointer conversions. Verified full/empty and boundary conditions in Vivado.
+            </p>
+          </div>
+          <div class="skill-tags">
+            <span class="tag">Verilog</span>
+            <span class="tag">CDC</span>
+            <span class="tag">Gray Coding</span>
+            <span class="tag">Vivado</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <div class="project-category">Peripheral Interface RTL</div>
+            <h3 class="project-title">AMBA APB Slave Interface FSM</h3>
+            <p class="project-desc">
+              Implemented a standards-compliant APB slave core utilizing a robust Finite State Machine (SETUP, ACCESS, TRANSFER). Verified cycle-accurate timings across PADDR, PSEL, PENABLE, PWRITE, and PREADY using constrained-random test scenarios.
+            </p>
+          </div>
+          <div class="skill-tags">
+            <span class="tag">APB Protocol</span>
+            <span class="tag">FSM Design</span>
+            <span class="tag">RTL</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <div class="project-category">Deep Learning Research</div>
+            <h3 class="project-title">Attention-Based Medical Segmentation</h3>
+            <p class="project-desc">
+              Formulated novel ConvUNext and RegUNeXt deep learning architectures incorporating spatial &amp; hybrid attention mechanisms for brain tumor MRI segmentation on BraTS datasets. Achieved state-of-the-art segmentation fidelity on small data subsets.
+            </p>
+          </div>
+          <div class="skill-tags">
+            <span class="tag">PyTorch</span>
+            <span class="tag">Python</span>
+            <span class="tag">Computer Vision</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <div class="project-category">Analog / Mixed-Signal</div>
+            <h3 class="project-title">Two-Stage CMOS Op-Amp (180nm)</h3>
+            <p class="project-desc">
+              Designed a high-gain two-stage CMOS operational amplifier in Cadence Virtuoso. Applied Miller frequency compensation to ensure phase margin stability under variable capacitive loading; analyzed AC, DC, and transient metrics (GBW, Slew Rate).
+            </p>
+          </div>
+          <div class="skill-tags">
+            <span class="tag">Cadence Virtuoso</span>
+            <span class="tag">180nm CMOS</span>
+            <span class="tag">Analog IC</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Research Publications & Book Chapters -->
+    <section id="research">
+      <h2 class="section-title"><span class="section-num">04.</span> Publications &amp; Honors</h2>
+      
+      <div class="pub-card">
+        <span class="pub-badge">Best Paper Award &bull; Published</span>
+        <div class="pub-title">Effects of Novel Segmentation Framework ConvUNext Network along with Spatial Attention Module on Small Brain Tumor Dataset</div>
+        <div class="pub-meta">IEEE IC2E3 2025 &bull; NIT Uttarakhand | Rambarki Pavan Kumar, Pranshu Jena, Umesh C. Pati</div>
+      </div>
+
+      <div class="pub-card">
+        <span class="pub-badge">IEEE Conference &bull; Published</span>
+        <div class="pub-title">RegUNeXt with Hybrid Attention for Advanced Segmentation for Tumorous Region in Brain Tumor</div>
+        <div class="pub-meta">4th IEEE CVMI 2025 &bull; NIT Rourkela | Rambarki Pavan Kumar, Pranshu Jena, Umesh C. Pati</div>
+      </div>
+
+      <div class="pub-card">
+        <span class="pub-badge">Book Chapter &bull; Accepted</span>
+        <div class="pub-title">Artificial Intelligence in Medical Imaging</div>
+        <div class="pub-meta">Intelligence-driven Automation Techniques &bull; IEEE Press - Wiley | Rambarki Pavan Kumar, Pranshu Jena, Umesh C. Pati</div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" style="margin-top: 3rem;">
+      <h2 class="section-title"><span class="section-num">05.</span> Education</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">M.Tech in Electronics &amp; Instrumentation Engineering</div>
+              <div class="timeline-company">National Institute of Technology, Rourkela</div>
+            </div>
+            <div class="timeline-period">2023 – 2025 &bull; CGPA: 8.47 / 10</div>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Coursework: CMOS Digital IC Design, Analog &amp; Mixed Signal VLSI, Hardware Modelling using Verilog HDL, Static Timing Analysis, Machine Learning.
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">B.Tech in Electronics &amp; Communication Engineering</div>
+              <div class="timeline-company">Guru Ghasidas Vishwavidyalaya (Central University)</div>
+            </div>
+            <div class="timeline-period">2019 – 2023 &bull; CGPA: 7.96 / 10</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Mailbox Section -->
+    <section id="contact" style="margin-top: 3.5rem;">
+      <h2 class="section-title"><span class="section-num">06.</span> Get In Touch</h2>
+      
+      <div class="contact-container">
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <h3>Let's Collaborate</h3>
+          <p>
+            Whether you are a recruiter discussing DV opportunities, an engineer exploring verification automation, or looking to discuss AMBA protocols and deep learning research, feel free to drop a message.
+          </p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <span>📧</span>
+              <a href="mailto:pavanrambariki@gmail.com">pavanrambariki@gmail.com</a>
+            </div>
+            <div class="contact-item">
+              <span>💼</span>
+              <a href="https://linkedin.com/in/rambarkipavan" target="_blank">linkedin.com/in/rambarkipavan</a>
+            </div>
+            <div class="contact-item">
+              <span>📍</span>
+              <span>Bengaluru, Karnataka, India</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mailbox Form -->
+        <form class="mailbox-form" action="https://formspree.io/f/pavanrambariki@gmail.com" method="POST">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="e.g., Alex Reed (Hiring Team)" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="_replyto" class="form-control" placeholder="alex@company.com" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="_subject" class="form-control" placeholder="VLSI DV Role / Discussion" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" class="form-control" placeholder="Hi Pavan, I came across your portfolio and wanted to connect..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-send">Send Message &rarr;</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 Pavan Kumar Rambarki. Built for High-Performance Semiconductor &amp; AI Teams.</p>
+    </footer>
+  </div>
+
+</body>
+</html>
