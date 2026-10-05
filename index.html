@@ -404,7 +404,7 @@
       color: var(--text-muted);
     }
 
-    /* Contact Section & Mailbox */
+    /* Contact Section & Direct Mailbox */
     .contact-container {
       display: grid;
       grid-template-columns: 1fr 1.3fr;
@@ -792,7 +792,7 @@
       </div>
     </section>
 
-    <!-- Contact & Mailbox Section -->
+    <!-- Contact & Direct Mailbox Section -->
     <section id="contact" style="margin-top: 3.5rem;">
       <h2 class="section-title"><span class="section-num">06.</span> Get In Touch</h2>
       
@@ -819,23 +819,23 @@
           </div>
         </div>
 
-        <!-- Mailbox Form -->
-        <form class="mailbox-form" action="https://formspree.io/f/pavanrambariki@gmail.com" method="POST">
+        <!-- Mailbox Form (Direct Client-Side Mailto - Zero Setup Required) -->
+        <form class="mailbox-form" onsubmit="sendDirectEmail(event)">
           <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" class="form-control" placeholder="e.g., Alex Reed (Hiring Team)" required>
+            <label for="senderName">Your Name</label>
+            <input type="text" id="senderName" class="form-control" placeholder="e.g., Alex Reed (Hiring Team)" required>
           </div>
           <div class="form-group">
-            <label for="email">Your Email</label>
-            <input type="email" id="email" name="_replyto" class="form-control" placeholder="alex@company.com" required>
+            <label for="senderEmail">Your Email</label>
+            <input type="email" id="senderEmail" class="form-control" placeholder="alex@company.com" required>
           </div>
           <div class="form-group">
-            <label for="subject">Subject</label>
-            <input type="text" id="subject" name="_subject" class="form-control" placeholder="VLSI DV Role / Discussion" required>
+            <label for="senderSubject">Subject</label>
+            <input type="text" id="senderSubject" class="form-control" placeholder="VLSI DV Role / Discussion" required>
           </div>
           <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" class="form-control" placeholder="Hi Pavan, I came across your portfolio and wanted to connect..." required></textarea>
+            <label for="senderMessage">Message</label>
+            <textarea id="senderMessage" class="form-control" placeholder="Hi Pavan, I came across your portfolio and wanted to connect..." required></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-send">Send Message &rarr;</button>
         </form>
@@ -847,6 +847,19 @@
       <p>&copy; 2026 Pavan Kumar Rambarki. Built for High-Performance Semiconductor &amp; AI Teams.</p>
     </footer>
   </div>
+
+  <script>
+    function sendDirectEmail(e) {
+      e.preventDefault();
+      const name = encodeURIComponent(document.getElementById('senderName').value);
+      const email = encodeURIComponent(document.getElementById('senderEmail').value);
+      const subject = encodeURIComponent(document.getElementById('senderSubject').value || 'Portfolio Contact Inquiry');
+      const msg = encodeURIComponent(document.getElementById('senderMessage').value);
+
+      const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${msg}`;
+      window.location.href = `mailto:pavanrambariki@gmail.com?subject=${subject}&body=${body}`;
+    }
+  </script>
 
 </body>
 </html>
