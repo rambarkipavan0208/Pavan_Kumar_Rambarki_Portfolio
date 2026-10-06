@@ -86,7 +86,7 @@
 
     .nav-links {
       display: flex;
-      gap: 1.8rem;
+      gap: 1.6rem;
       list-style: none;
       align-items: center;
     }
@@ -436,19 +436,33 @@
       flex-grow: 1;
     }
 
+    /* Publications with PDF buttons */
     .pub-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 1rem;
+      padding: 1.6rem;
+      margin-bottom: 1.25rem;
       display: flex;
       flex-direction: column;
+      gap: 0.6rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .pub-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+
+    .pub-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
       gap: 0.5rem;
     }
 
     .pub-badge {
-      align-self: flex-start;
       background: rgba(129, 140, 248, 0.15);
       color: var(--accent-indigo);
       border: 1px solid rgba(129, 140, 248, 0.3);
@@ -456,6 +470,12 @@
       border-radius: 4px;
       font-size: 0.75rem;
       font-family: var(--font-mono);
+    }
+
+    .pub-badge-award {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.35);
     }
 
     .pub-title {
@@ -467,6 +487,33 @@
     .pub-meta {
       font-size: 0.85rem;
       color: var(--text-muted);
+    }
+
+    .pub-actions {
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      padding: 0.35rem 0.8rem;
+      border-radius: 5px;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      background: rgba(56, 189, 248, 0.08);
+      color: var(--accent-cyan);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-pdf:hover {
+      background: rgba(56, 189, 248, 0.2);
+      transform: translateY(-1px);
+      color: #fff;
     }
 
     /* Contact Section */
@@ -830,22 +877,40 @@
     <section id="research">
       <h2 class="section-title"><span class="section-num">04.</span> Publications &amp; Honors</h2>
       
+      <!-- Paper 1 -->
       <div class="pub-card">
-        <span class="pub-badge">Best Paper Award &bull; Published</span>
+        <div class="pub-header">
+          <span class="pub-badge pub-badge-award">🏆 Best Paper Award &bull; Published</span>
+        </div>
         <div class="pub-title">Effects of Novel Segmentation Framework ConvUNext Network along with Spatial Attention Module on Small Brain Tumor Dataset</div>
         <div class="pub-meta">IEEE IC2E3 2025 &bull; NIT Uttarakhand | Rambarki Pavan Kumar, Pranshu Jena, Umesh C. Pati</div>
+        <div class="pub-actions">
+          <a href="publications/ConvUNext_Brain_Tumor_IC2E3.pdf" target="_blank" class="btn-pdf">📄 Read Paper (PDF)</a>
+        </div>
       </div>
 
+      <!-- Paper 2 -->
       <div class="pub-card">
-        <span class="pub-badge">IEEE Conference &bull; Published</span>
+        <div class="pub-header">
+          <span class="pub-badge">IEEE Conference &bull; Published</span>
+        </div>
         <div class="pub-title">RegUNeXt with Hybrid Attention for Advanced Segmentation for Tumorous Region in Brain Tumor</div>
         <div class="pub-meta">4th IEEE CVMI 2025 &bull; NIT Rourkela | Rambarki Pavan Kumar, Pranshu Jena, Umesh C. Pati</div>
+        <div class="pub-actions">
+          <a href="publications/RegUNeXt_Brain_Tumor_CVMI.pdf" target="_blank" class="btn-pdf">📄 Read Paper (PDF)</a>
+        </div>
       </div>
 
+      <!-- Book Chapter -->
       <div class="pub-card">
-        <span class="pub-badge">Book Chapter &bull; Accepted</span>
+        <div class="pub-header">
+          <span class="pub-badge">Book Chapter &bull; Accepted</span>
+        </div>
         <div class="pub-title">Artificial Intelligence in Medical Imaging</div>
         <div class="pub-meta">Intelligence-driven Automation Techniques &bull; IEEE Press - Wiley | Rambarki Pavan Kumar, Pranshu Jena, Umesh C. Pati</div>
+        <div class="pub-actions">
+          <a href="publications/AI_in_Medical_Imaging_Chapter.pdf" target="_blank" class="btn-pdf">📄 View Chapter Preprint (PDF)</a>
+        </div>
       </div>
     </section>
 
